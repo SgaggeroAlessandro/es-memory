@@ -90,6 +90,32 @@ function Scelta(indice) {
     //  Mostra il simbolo
     bottoneCliccato.innerHTML = mazzoDiGioco[indice];
 }
+function preparaMazzo(numeroTotaleCarte) {
+    let numeroCoppie = numeroTotaleCarte / 2;
+    // Prendo i primi "numeroCoppie" simboli
+    let selezione = simboli.slice(0, numeroCoppie);
+
+    // Creo le coppie: ogni simbolo compare 2 volte
+    mazzoDiGioco = [];
+    for (let s of selezione) {
+        mazzoDiGioco.push(s);
+        mazzoDiGioco.push(s);
+    }
+
+    // Mischio il mazzo (Fisher-Yates)
+    for (let i = mazzoDiGioco.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = mazzoDiGioco[i];
+        mazzoDiGioco[i] = mazzoDiGioco[j];
+        mazzoDiGioco[j] = temp;
+    }
+
+    // Reset variabili di gioco
+    primaScelta = null;
+    secondaScelta = null;
+    bloccaClick = false;
+    carteTrovate = 0;
+}
 
 function controllaCoppia() {
     bloccaClick = true; 
